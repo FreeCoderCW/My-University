@@ -40,3 +40,38 @@ Candy 200
 2.
 对于样例一中第二组数据:Apple 300是价格第一大，Candy 200是价格第二高，Bracelet
 200是价格第三大。
+
+题解1：
+#include<bits/stdc++.h>
+using namespace std ;
+struct node
+{
+    string name;
+    int price;
+}a[1005];
+bool cmp(node x, node y)
+{
+    if(x.price == y.price)
+        return x.name > y.name;
+    else
+        return x.price > y.price;
+}
+int main()
+{
+    int t,n,k,kass = 1;
+    cin>>t;
+    while(t--)
+    {
+        cin >> n;
+        for(int i = 0; i < n; i++)
+        {
+            cin >> a[i].name >> a[i].price;
+        }
+        sort(a,a+n,cmp);
+        cin >> k; k--;
+        cout << "#" << kass++ << ": ";
+        cout << a[k].name << " " << a[k].price <<endl;
+    }
+   
+    return 0 ;
+}
