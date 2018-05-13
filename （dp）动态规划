@@ -1,0 +1,75 @@
+链接：https://www.nowcoder.com/acm/contest/121/C
+来源：牛客网
+
+题目描述 
+    iko超级超级喜欢吃糖，有一天iko想出去玩，她计划从1点走到N点（按1,2,3，...，n的顺序走），每个点都有一个补给站，第i点的补给站有a[i]颗糖，从i点
+    走到i+1点会消耗掉b[i]颗糖，iko在出游的途中可以选择三个补给站，iko想知道她走完全程到达N点时口袋里最多还能剩下几颗糖（初始时iko的口袋里一颗
+    糖都没有）。
+
+输入描述:
+第一行输入N（3<=N<=1000）
+第二行输入N个数代表a[1].......a[N]  (0<=a[i]<=1000 )
+第三行输入N-1个数代表b[1]......b[N-1]  ( 1<=b[i]<=1000 )
+输出描述:
+输出一个数字表示iko到达n点时口袋里最多剩下的糖，
+若不能到达N点输出-1。
+示例1
+输入
+3
+1 3 4
+3 4
+输出
+-1
+示例2
+输入
+5
+3 4 5 2 4
+3 2 2 2
+输出
+3
+
+#include<bits/stdc++.h>
+using namespace std;
+int a[1010];
+int b[1101];
+int dp[1010][4];
+int main()
+{
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++)
+        cin>>a[i];
+    dp[0][0]=0,dp[0][1]=a[0],dp[0][2]=0,dp[0][3]=0;
+    for(int i=0;i<n-1;i++)
+    {
+        cin>>b[i];
+        for(int j=0;j<=3;j++)
+        {
+            if(j<=i+2)
+            {
+                if(j!=0)
+                {
+                    if(dp[i][j-1]-b[i]>=0)
+                        dp[i+1][j]=max(dp[i][j-1]-b[i]+a[i+1],dp[i][j]-b[i]);
+                    else
+                        dp[i+1][j]=dp[i][j]-b[i];
+                }
+                else
+                    dp[i+1][j]=dp[i][j]-b[i];
+            }
+            else
+            {
+                dp[i+1][j]=0;
+            }
+           /// cout<<dp[i+1][j]<<" ";
+        }
+       // cout<<endl;
+    }
+    int ma=-1;
+    for(int i=0;i<=3;i++)
+    {
+        ma=max(dp[n-1][i],ma);
+    }
+    cout<<ma<<endl;
+    return 0;
+}
