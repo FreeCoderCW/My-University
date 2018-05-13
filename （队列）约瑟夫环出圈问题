@@ -1,0 +1,52 @@
+链接：https://www.nowcoder.com/acm/contest/121/D
+来源：牛客网
+
+    ZQ是一个拥有n女朋友的万人迷，她的每一个女朋友每天晚上都会挨个给他打电话，要他讲了睡前故事才能睡觉。可是，每次他的女朋友都会挑他在吃鸡的时候打电话，ZQ总是因为挂机被舍友赶出宿舍，于是，ZQ告诉他的女朋友们，别打电话了，他会主动打过去给他们讲故事，再打电话就分手！
+
+    于是，ZQ把他的女朋友名字写在纸上，画成一圈，顺时针编号为1~n，然后从1开始顺时针数。在每一次数数中，ZQ数k个就停下来，然后给选中的女朋友打电话讲故事。 
+
+    现在需要你按顺序告诉我们他给女朋友打电话的顺序
+
+输入描述:
+先输入一个t，然后t组数据，每行包含两个数字n,k，n<20,k>0
+输出描述:
+按顺序输出每轮被选中的女朋友的编号。
+示例1
+输入
+3
+10 3
+5 2
+11 4
+输出
+3 6 9 2 7 1 8 5 10 4
+2 4 1 5 3
+4 8 1 6 11 7 3 2 5 10 9
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int t,n,k,ans;
+    scanf("%d",&t);
+    while(t--)
+    {
+        scanf("%d%d",&n,&k);
+        queue<int>s;
+        for(int i=1;i<=n;i++) s.push(i);
+        int m=1,flag=1;
+        while(!s.empty())
+        {
+            int p=s.front();
+            s.pop();
+            if(m%k==0)
+            {
+                if(flag) printf("%d",p),flag=0;
+                else printf(" %d",p);
+            }
+            else s.push(p);
+            m++;
+        }
+        printf("\n");
+    }
+    return 0;
+}
